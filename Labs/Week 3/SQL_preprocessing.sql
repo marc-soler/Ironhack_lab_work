@@ -62,17 +62,10 @@ FROM
     rental;
 
 # 9. How many rentals were in the last month of activity?
-# Method 1:
 SELECT 
     COUNT(rental_id)
 FROM
     rental
 WHERE
     rental_date >= '2006-02-14' - INTERVAL 1 MONTH;
-# Method 2:
-SELECT 
-    COUNT(rental_id)
-FROM
-    rental
-WHERE  
-	rental_date BETWEEN CAST('2006-01-14' AS DATE) AND CAST('2006-02-14' AS DATE);
+
