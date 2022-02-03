@@ -1,35 +1,3 @@
-# Creating a database and two tables with failsafe (DROP):
-DROP DATABASE IF EXISTS literature;
-CREATE DATABASE literature;
-USE literature;
-DROP TABLE IF EXISTS authors;
-CREATE TABLE authors (
-    author_id INT AUTO_INCREMENT NOT NULL, #very useful the auto_increment
-    name VARCHAR(30),
-    country VARCHAR(20),
-    PRIMARY KEY (author_id)
-);
-DROP TABLE IF EXISTS books;
-CREATE TABLE books (
-    book_id INT AUTO_INCREMENT NOT NULL,
-    name VARCHAR(50),
-    author_id INT,
-    category VARCHAR(30),
-    PRIMARY KEY (book_id)
-);
-
-# Populating the tables:
-INSERT INTO literature.authors(
-	name,
-	country
-)
-VALUES
-('Jens Peter Jacobsen', 'Denmark'),
-('Friedrich Hayek', 'Austria'),
-('Mary Shelley', 'United Kingdom'),
-('Fyodor Dostoevsky', 'Russia'),
-('Hermann Hesse', 'Germany');
-
 # Continuing to query a single table:
 USE bank;
 SELECT 
