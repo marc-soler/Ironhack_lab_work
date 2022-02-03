@@ -96,3 +96,94 @@ WHERE
     d.type = 'OWNER'
 GROUP BY loan_status;
 
+# SUB-QUERIES:
+# Show loans greater than the average loan amount:
+SELECT 
+    *
+FROM
+    loan
+WHERE
+    amount > (SELECT 
+            AVG(amount)
+        FROM
+            loan);
+
+# Which loan status has a mean loan amount bigger than the overall mean loan amount:
+SELECT 
+    status, AVG(amount) AS avgloans
+FROM
+    loan
+GROUP BY status
+HAVING avgloans > (SELECT 
+        AVG(amount)
+    FROM
+        loan);
+
+# 3.05 Activity 1 exercise 1:
+SELECT 
+    ROUND(AVG(Transactions)) AS average
+FROM
+    (SELECT 
+        account_id, COUNT(trans_id) AS Transactions
+    FROM
+        trans
+    GROUP BY account_id) AS s;
+
+# Which accounts have more transactions than the average transaction 
+SELECT 
+    account_id, COUNT(trans_id) AS Transactions
+FROM
+    trans
+GROUP BY account_id
+HAVING Transactions > (SELECT 
+        ROUND(AVG(notrans)) AS average
+    FROM
+        (SELECT 
+            account_id, COUNT(trans_id) AS notrans
+        FROM
+            trans
+        GROUP BY account_id) AS sub2)
+ORDER BY Transactions DESC;
+
+# All accounts, which status that has higher than average amount (much easier to hard code statuses)
+SELECT 
+    *
+FROM
+    loan
+WHERE
+    status IN (SELECT 
+            status
+        FROM
+            (SELECT 
+                status, AVG(amount) AS avgloans
+            FROM
+                loan
+            GROUP BY status
+            HAVING avgloans > (SELECT 
+                    AVG(amount)
+                FROM
+                    loan))as sub);
+
+
+# 3.05 Activity 1 exercise 2:
+# Sub-queries
+SELECT 
+    account_id
+FROM
+    account
+WHERE
+    district_id IN (SELECT 
+            A1
+        FROM
+            district
+        WHERE
+            A3 = 'central Bohemia');
+# Join
+SELECT 
+    a.account_id
+FROM
+    account AS a
+        JOIN
+    district AS d ON a.district_id = d.A1
+WHERE
+    d.A3 = 'central Bohemia';
