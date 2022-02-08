@@ -20,7 +20,7 @@ The complete analysis is available [here](final_code/customer_analysis_predictio
   * Iteration 1 (X): This model has had removed its outliers, as well as the columns 'customer' and 'effective_to_date'. Also, a Normalizer scaler has been applied to the numerical features, and the categorical ones have been encoded using OHE. This model has also served as a benchmark for the subsequent ones
   * Iteration 2 (X_2): The same as the first one, except it includes the outliers
   * Iteration 3 (X_3): This candidate model has kept the outliers removed, since their inclusion did not increase the model's precision, and has had the columns 'number_of_policies', 'number_of_open_complaints', 'months_since_policy_inception' and 'months_since_last_claim' removed. This last decision is based on the heatmap below: all of these variables barely correlate with out label, and thus might introduce noise in the model
-![](Images/heatmap.png)
+![](images/heatmap.png)
 
 ## Key take aways
 - The best performing model, based on their indicators, is actually the base model (Model (X)), with an explained variance of roughly 77% and a mean average error (MAE) of 87.7. Therefore, this model allows us to predict the total claimed amount of a certain customer (as long as its features are similar to the ones in our sample) within a margin of 87.7$.
