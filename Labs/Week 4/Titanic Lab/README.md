@@ -70,7 +70,7 @@ The author point out that, while both Decision Tree and Random Forest score the 
 
 
 ## IV. Titanic using LogisticRegression by DEMKO1
-[Link to the entry](https://www.kaggle.com/ahmetcelik158/titanic)
+[Link to the entry](https://www.kaggle.com/demko1/titanic-using-logisticregression/notebook)
 
 - **Any feature engineering or feature wrangling methods which you have seen?**  
 Not much apart from dropped columns ("Name", "Ticket", "Cabin"), filled missing values and basic categorical variables encoding.
