@@ -1,5 +1,5 @@
 # 1. Titanic data EDA
-From preliminary Exploratory Data Analysis on the Titanic dataset, we can extract the following observations:
+From preliminary [Exploratory Data Analysis](https://github.com/mrpotato2012/Ironhack_lab_work/blob/main/Labs/Week%204/Titanic%20Lab/Titanic%20EDA.ipynb) on the Titanic dataset, we can extract the following observations:
 - The features seem to strongly correlate with the label (Survived) the most are passenger class (Pclass), having passengers in first class the highest odds of surviving, gender, having women more chances of surviving, and age, having younger people more frequently survived.
 - Good opportunities for feature engineering/extraction are present:
   - The family size of each passenger can be easily computed.
