@@ -1,4 +1,4 @@
-# Using logistic regression to predict customer churn for a telecom company :telephone: :walking: :arrows_counterclockwise:cu
+# Using logistic regression to predict customer churn for a telecom company :telephone: :walking: :arrows_counterclockwise:
 
 ![](images/customer_churn.png)
 
