@@ -74,15 +74,15 @@ def recommender():
     import spotipy
     from spotipy.oauth2 import SpotifyClientCredentials
     import getpass
-    import pandas as pd
     import random
+    from tqdm import tqdm
     # global variables & spotipy connection
     client_id = str(getpass.getpass('client_id?'))
     client_secret = str(getpass.getpass('client_secret?'))
     client_credentials_manager = SpotifyClientCredentials(client_id, client_secret)
     sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
     print('\nGetting the data...')
-    top = top100()
+    top = tqdm(top100())
     avail_genres = sp.recommendation_genre_seeds()['genres']
     # Main loop
     go_again = True
@@ -158,7 +158,7 @@ def recommender():
                                     # Recommend 3 songs based on the song and with the same genre
                                     if check_genre.lower() == 'yes':
                                         print('\nIf it works, why change it I guess! Here are your fresh '
-                                              'recommendations, ejoy :)')
+                                              'recommendations, enjoy :)')
                                         song_id = song_sp['tracks']['items'][0]['id']
                                         genres_split = genres[0].split(",")
                                         recom = sp.recommendations(seed_tracks=[song_id],
