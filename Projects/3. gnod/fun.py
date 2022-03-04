@@ -76,23 +76,25 @@ def recommender():
     import getpass
     import random
     from tqdm import tqdm
+    from time import sleep
+    from fuzzywuzzy import fuzz
     # global variables & spotipy connection
     client_id = str(getpass.getpass('client_id?'))
     client_secret = str(getpass.getpass('client_secret?'))
     client_credentials_manager = SpotifyClientCredentials(client_id, client_secret)
     sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
     print('\nGetting the data...')
-    top = tqdm(top100())
+    top = top100()
     avail_genres = sp.recommendation_genre_seeds()['genres']
     # Main loop
     go_again = True
     while go_again:
-        song = input("Tell me a song you really like and I'll tell you some similar ones! You can tell me the title "
+        song = input("\nTell me a song you really like and I'll tell you some similar ones! You can tell me the title "
                      "and the artist, or only the title!: ")
         best_match = ()
         # Getting the best match from billboard Hot100 using Levenshtein's ratio
         for index, name in top['song_title'].iteritems():
-            ratio = levenshtein_ratio(name, song, ratio_calc=True)
+            ratio = fuzz.partial_ratio(song.lower(), name.lower())
             if len(best_match) == 0:
                 best_match = (index, ratio)
             else:
@@ -101,8 +103,8 @@ def recommender():
         # Check if song in Hot100, then Spotify recommendations
         while True:
             print('\nOkay, I was looking in the Billboard Hot 100 list and I found something!')
-            prompt = input(
-                f'Do you mean {top.iloc[best_match[0]].song_title} by {top.iloc[best_match[0]].artists}? Type yes/no: ')
+            prompt = input(f'\nDo you mean {top.iloc[best_match[0]].song_title} by {top.iloc[best_match[0]].artists}? '
+                           f'Type yes/no: ')
             # Song in Hot100, recommend 3 random songs from spotify due to poor music taste
             if prompt.lower() == 'yes':
                 print("\nHmm... I'm sorry to break it to you darling, but your taste in music kinda sucks :(")
@@ -118,6 +120,7 @@ def recommender():
                     recom_id = recom['tracks'][0]['id']
                     print(f"\n - {song_recom} by {artist_recom}")
                     spotify_display(recom_id)
+                    sleep(1)
                 break
             # Song not in Hot100, search in Spotify and promp user to confirm again
             elif prompt.lower() == 'no':
@@ -149,6 +152,7 @@ def recommender():
                                     recom_id = track['id']
                                     print(f"\n - {song_recom} by {artist_recom}")
                                     spotify_display(recom_id)
+                                    sleep(1)
                             else:
                                 print(f"\nAccording to Spotify, your song has the genres: {str(genres)}")
                                 # Asking user for same genre
@@ -169,6 +173,7 @@ def recommender():
                                             recom_id = track['id']
                                             print(f"\n - {song_recom} by {artist_recom}")
                                             spotify_display(recom_id)
+                                            sleep(1)
                                         break
                                     # Recommend 3 songs based on the song but each with a different genre
                                     elif check_genre.lower() == 'no':
