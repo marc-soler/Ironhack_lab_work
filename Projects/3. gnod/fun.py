@@ -136,6 +136,8 @@ def recommender():
                         artist_name = song_sp['tracks']['items'][0]['artists'][0]['name']
                         prompt = input(f"\nI got a match! Are you referring to the song {song_name} by {artist_name}? "
                                        f"Type yes/no: ")
+                        choice = song_sp['tracks']['items'][0]['id']
+                        spotify_display(choice)
                         if prompt.lower() == 'yes':
                             # Checking the genre of the song
                             track_ex = song_sp['tracks']['items'][0]
